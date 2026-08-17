@@ -1,0 +1,21 @@
+---
+/**
+ * The single frame for page content: centers it and keeps it away from the screen
+ * edges on every viewport. Wrap page content in this instead of setting margins
+ * per page.
+ */
+---
+
+<div class="container">
+	<slot />
+</div>
+
+<style>
+	.container {
+		width: 100%;
+		max-width: var(--container-width);
+		margin-inline: auto;
+		padding-inline: var(--container-padding-inline);
+		padding-block: var(--container-padding-block);
+	}
+</style>

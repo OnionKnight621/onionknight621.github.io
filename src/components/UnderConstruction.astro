@@ -1,0 +1,84 @@
+---
+import Container from './Container.astro';
+import EmailAddress from './EmailAddress.astro';
+import { contacts, links } from '../config';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+
+// The dictionary string carries a `{link}` marker where the store link belongs.
+const [beforeLink, afterLink] = t('about.body').split('{link}');
+---
+
+<main class="page">
+	<Container>
+		<h1 class="intro">{t('wip.intro')}</h1>
+
+		<img
+			class="sign"
+			src="/under-construction.png"
+			alt={t('wip.imageAlt')}
+			width="100%"
+		/>
+
+		<section class="overline about">
+			<p>{beforeLink}<a href={links.carpetorium}>{t('about.linkLabel')}</a>{afterLink}</p>
+		</section>
+
+		<section class="overline">
+			<ul class="contacts">
+				<li><span class="label">{t('contacts.discord')}</span> {contacts.discord}</li>
+				<li><span class="label">{t('contacts.email')}</span> <EmailAddress /></li>
+			</ul>
+		</section>
+	</Container>
+</main>
+
+<style>
+	.page {
+		min-height: 100svh;
+		display: grid;
+		align-items: center;
+	}
+
+	.intro {
+		font-size: clamp(1.125rem, 3vw, 1.5rem);
+		font-weight: 500;
+		text-align: center;
+	}
+
+	.sign {
+		/* A 160x128 source, so upscale it and keep it crisp instead of smoothed. */
+		width: min(300%, 960px);
+		height: auto;
+		margin: var(--space-12) auto;
+		image-rendering: pixelated;
+	}
+
+	section {
+		padding: 2rem;
+	}
+
+	.overline {
+		border-block-start: 1px solid var(--color-border);
+		padding-block-start: var(--space-6);
+		color: var(--color-text-muted);
+	}
+
+	.contacts {
+		
+		margin-block-start: var(--space-6);
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2) var(--space-8);
+		font-family: var(--font-mono);
+		font-size: 0.875rem;
+		color: var(--color-text);
+	}
+
+	.label {
+		color: var(--color-text-muted);
+	}
+</style>

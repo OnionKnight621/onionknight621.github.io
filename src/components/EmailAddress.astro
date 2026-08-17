@@ -1,0 +1,22 @@
+---
+import { contacts } from '../config';
+
+const { user, domain } = contacts.email;
+---
+
+<span data-email-user={user} data-email-domain={domain}>{user} [at] {domain}</span>
+
+<script>
+	// The address ships as "user [at] domain" so a naive scraper looking for
+	// `something@something` finds nothing. Real visitors get a normal mailto link.
+	const target = document.querySelector<HTMLElement>('[data-email-user]');
+	const { emailUser, emailDomain } = target?.dataset ?? {};
+
+	if (target && emailUser && emailDomain) {
+		const address = `${emailUser}@${emailDomain}`;
+		const link = document.createElement('a');
+		link.href = `mailto:${address}`;
+		link.textContent = address;
+		target.replaceChildren(link);
+	}
+</script>

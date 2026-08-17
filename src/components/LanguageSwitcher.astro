@@ -1,0 +1,44 @@
+---
+import { languages, langCodes } from '../i18n/ui';
+import {
+	getLangFromUrl,
+	localizePath,
+	stripLangFromPath,
+	useTranslations,
+} from '../i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
+
+// Keeps the visitor on the same page when they switch language.
+const pathWithoutLang = stripLangFromPath(Astro.url.pathname);
+---
+
+<nav class="switcher" aria-label={t('lang.switcherLabel')}>
+	{
+		langCodes.map((code) => (
+			<a
+				href={localizePath(pathWithoutLang, code)}
+				lang={code}
+				aria-current={code === currentLang ? 'page' : undefined}
+			>
+				{languages[code]}
+			</a>
+		))
+	}
+</nav>
+
+<style>
+	.switcher {
+		display: flex;
+		gap: var(--space-3);
+		font-family: var(--font-mono);
+		font-size: 0.875rem;
+	}
+
+	a[aria-current='page'] {
+		color: var(--color-text-muted);
+		text-decoration: none;
+		cursor: default;
+	}
+</style>
