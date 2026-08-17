@@ -5,6 +5,9 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
     site: 'https://onionknight621.github.io',
 
+	// GitHub Pages serves this branch from `docs/`, so build straight into it.
+	outDir: './docs',
+
 	i18n: {
 		defaultLocale: 'en',
 		locales: ['en', 'uk'],
