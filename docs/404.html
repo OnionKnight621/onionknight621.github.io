@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-z4jru4n3><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><meta name="generator" content="Astro v7.2.2"><title>404 — page not found</title><meta name="description" content="Personal site of onionknight621 — developer, and the person making Carpetorium: A Carpet-Cleaning Purgatory."><link rel="canonical" href="https://onionknight621.github.io/404/"><meta name="robots" content="noindex"><link rel="alternate" hreflang="en" href="https://onionknight621.github.io/"><link rel="alternate" hreflang="uk" href="https://onionknight621.github.io/uk/"><meta property="og:type" content="website"><meta property="og:title" content="404 — page not found"><meta property="og:description" content="Personal site of onionknight621 — developer, and the person making Carpetorium: A Carpet-Cleaning Purgatory."><meta property="og:url" content="https://onionknight621.github.io/404/"><meta name="twitter:card" content="summary_large_image"><style>:root{--color-bg:#14100f;--color-surface:#1e1917;--color-border:#332b27;--color-text:#ece5df;--color-text-muted:#a2968d;--color-accent:#e0913f;--space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-6:1.5rem;--space-8:2rem;--space-12:3rem;--space-16:4rem;--container-width:60rem;--container-padding-inline:clamp(var(--space-4), 5vw, var(--space-12));--container-padding-block:clamp(var(--space-8), 8vh, var(--space-16));--font-body:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;--font-mono:ui-monospace, "Cascadia Code", "Consolas", monospace}*,:before,:after{box-sizing:border-box}body,h1,h2,h3,p,ul,ol,figure{margin:0}html{scroll-padding-block-start:var(--space-8)}body{background-color:var(--color-bg);min-height:100vh;color:var(--color-text);font-family:var(--font-body);-webkit-font-smoothing:antialiased;line-height:1.6}h1,h2,h3{text-wrap:balance;line-height:1.2}p{text-wrap:pretty}a{color:var(--color-accent);text-underline-offset:.2em;text-decoration-thickness:1px}img,svg{max-width:100%;display:block}:focus-visible{outline:2px solid var(--color-accent);outline-offset:3px}@media (prefers-reduced-motion:reduce){*,:before,:after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}.switcher[data-astro-cid-l4evwy7q]{gap:var(--space-3);font-family:var(--font-mono);font-size:.875rem;display:flex}a[data-astro-cid-l4evwy7q][aria-current=page]{color:var(--color-text-muted);cursor:default;text-decoration:none}body{position:relative}.language-corner[data-astro-cid-z4jru4n3]{position:absolute;inset-block-start:var(--space-6);inset-inline-end:var(--container-padding-inline)}.container[data-astro-cid-ap6mcnip]{width:100%;max-width:var(--container-width);padding-inline:var(--container-padding-inline);padding-block:var(--container-padding-block);margin-inline:auto}
+.page[data-astro-cid-ibpinaeu]{text-align:center;align-items:center;min-height:100svh;display:grid}.code[data-astro-cid-ibpinaeu]{font-family:var(--font-mono);color:var(--color-border);font-size:clamp(4rem,18vw,9rem);line-height:1}h1[data-astro-cid-ibpinaeu]{margin-block-start:var(--space-4);font-size:clamp(1.5rem,4vw,2rem)}.body[data-astro-cid-ibpinaeu]{margin-block:var(--space-6) var(--space-8);color:var(--color-text-muted);max-width:40ch;margin-inline:auto}
+</style></head><body data-astro-cid-z4jru4n3><div class="language-corner" data-astro-cid-z4jru4n3><nav class="switcher" aria-label="Change language" data-lang-switcher data-astro-cid-l4evwy7q><a href="/" lang="en" aria-current="page" data-astro-cid-l4evwy7q>EN</a><a href="/uk/" lang="uk" data-astro-cid-l4evwy7q>UA</a></nav></div><main class="page" data-astro-cid-ibpinaeu><div class="container" data-astro-cid-ap6mcnip><p class="code" aria-hidden="true" data-astro-cid-ibpinaeu>404</p><h1 data-i18n="heading" data-astro-cid-ibpinaeu>Nothing here</h1><p class="body" data-i18n="body" data-astro-cid-ibpinaeu>This page never existed, or it did and I swept it away. Either way, the carpet is clean now.</p><p data-astro-cid-ibpinaeu><a href="/" data-i18n="homeLink" data-astro-cid-ibpinaeu>Back to the front page</a></p></div></main></body></html><script>(function(){const strings = {"en":{"title":"404 — page not found","heading":"Nothing here","body":"This page never existed, or it did and I swept it away. Either way, the carpet is clean now.","homeLink":"Back to the front page","home":"/"},"uk":{"title":"404 — сторінку не знайдено","heading":"Тут нічого немає","body":"Такої сторінки ніколи не було, або була, але я її замів. У будь-якому разі килим тепер чистий.","homeLink":"На головну","home":"/uk/"}};
+const defaultLang = "en";
+
+	const requestedLang = location.pathname.split('/')[1];
+	const localized = strings[requestedLang];
+
+	if (localized && requestedLang !== defaultLang) {
+		document.documentElement.lang = requestedLang;
+		document.title = localized.title;
+
+		for (const element of document.querySelectorAll('[data-i18n]')) {
+			element.textContent = localized[element.dataset.i18n];
+		}
+
+		const homeLink = document.querySelector('a[data-i18n="homeLink"]');
+		if (homeLink) homeLink.href = localized.home;
+
+		// The switcher was rendered with the default language marked as current.
+		for (const link of document.querySelectorAll('[data-lang-switcher] a[lang]')) {
+			if (link.lang === requestedLang) {
+				link.setAttribute('aria-current', 'page');
+			} else {
+				link.removeAttribute('aria-current');
+			}
+		}
+	}
+})();</script>

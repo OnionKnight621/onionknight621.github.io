@@ -34,6 +34,12 @@ const en = {
 	'contacts.email': 'Email',
 
 	'lang.switcherLabel': 'Change language',
+
+	'404.title': '404 — page not found',
+	'404.heading': 'Nothing here',
+	'404.body':
+		'This page never existed, or it did and disappeared...',
+	'404.homeLink': 'Back to the front page',
 } as const;
 
 export type TranslationKey = keyof typeof en;
@@ -55,6 +61,12 @@ const uk: Record<TranslationKey, string> = {
 	'contacts.email': 'Пошта',
 
 	'lang.switcherLabel': 'Змінити мову',
+
+	'404.title': '404 — сторінку не знайдено',
+	'404.heading': 'Тут нічого немає',
+	'404.body':
+		'Такої сторінки ніколи не було, або була, але потім зникла...',
+	'404.homeLink': 'На головну',
 };
 
 export const dictionaries: Record<Lang, Record<TranslationKey, string>> = { en, uk };

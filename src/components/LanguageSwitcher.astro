@@ -7,14 +7,23 @@ import {
 	useTranslations,
 } from '../i18n/utils';
 
+interface Props {
+	/**
+	 * Language-agnostic path to switch to. Defaults to the current page, which is
+	 * what every normal page wants; the 404 page points at the home page instead.
+	 */
+	path?: string;
+}
+
 const currentLang = getLangFromUrl(Astro.url);
 const t = useTranslations(currentLang);
 
 // Keeps the visitor on the same page when they switch language.
-const pathWithoutLang = stripLangFromPath(Astro.url.pathname);
+const { path = stripLangFromPath(Astro.url.pathname) } = Astro.props;
+const pathWithoutLang = stripLangFromPath(path);
 ---
 
-<nav class="switcher" aria-label={t('lang.switcherLabel')}>
+<nav class="switcher" aria-label={t('lang.switcherLabel')} data-lang-switcher>
 	{
 		langCodes.map((code) => (
 			<a

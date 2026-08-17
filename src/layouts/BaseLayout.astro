@@ -14,15 +14,24 @@ interface Props {
 	title?: string;
 	/** Falls back to the site description from the dictionary. */
 	description?: string;
+	/** Language-agnostic path the language switcher should point at. */
+	switcherPath?: string;
+	/** Keeps the page out of search results — for the 404 page. */
+	noindex?: boolean;
 }
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const { title = t('site.title'), description = t('site.description') } = Astro.props;
+const {
+	title = t('site.title'),
+	description = t('site.description'),
+	switcherPath,
+	noindex = false,
+} = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
-const pathWithoutLang = stripLangFromPath(Astro.url.pathname);
+const pathWithoutLang = stripLangFromPath(switcherPath ?? Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -37,6 +46,7 @@ const pathWithoutLang = stripLangFromPath(Astro.url.pathname);
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalUrl} />
+		{noindex && <meta name="robots" content="noindex" />}
 
 		{
 			langCodes.map((code) => (
@@ -59,7 +69,7 @@ const pathWithoutLang = stripLangFromPath(Astro.url.pathname);
 	</head>
 	<body>
 		<div class="language-corner">
-			<LanguageSwitcher />
+			<LanguageSwitcher path={pathWithoutLang} />
 		</div>
 		<slot />
 	</body>

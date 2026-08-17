@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import { defaultLang, dictionaries, langCodes } from '../i18n/ui';
+import { localizePath, useTranslations } from '../i18n/utils';
+
+const t = useTranslations(defaultLang);
+
+/**
+ * GitHub Pages serves this one page for every missing URL, so the language can't
+ * be known at build time. The page renders in the default language and the script
+ * below switches it over when the requested path was a localized one.
+ */
+const strings = Object.fromEntries(
+	langCodes.map((lang) => [
+		lang,
+		{
+			title: dictionaries[lang]['404.title'],
+			heading: dictionaries[lang]['404.heading'],
+			body: dictionaries[lang]['404.body'],
+			homeLink: dictionaries[lang]['404.homeLink'],
+			home: localizePath('/', lang),
+		},
+	])
+);
+---
+
+<BaseLayout title={t('404.title')} switcherPath="/" noindex>
+	<main class="page">
+		<Container>
+			<p class="code" aria-hidden="true">404</p>
+			<h1 data-i18n="heading">{t('404.heading')}</h1>
+			<p class="body" data-i18n="body">{t('404.body')}</p>
+			<p>
+				<a href={localizePath('/', defaultLang)} data-i18n="homeLink">{t('404.homeLink')}</a>
+			</p>
+		</Container>
+	</main>
+</BaseLayout>
+
+<script is:inline define:vars={{ strings, defaultLang }}>
+	const requestedLang = location.pathname.split('/')[1];
+	const localized = strings[requestedLang];
+
+	if (localized && requestedLang !== defaultLang) {
+		document.documentElement.lang = requestedLang;
+		document.title = localized.title;
+
+		for (const element of document.querySelectorAll('[data-i18n]')) {
+			element.textContent = localized[element.dataset.i18n];
+		}
+
+		const homeLink = document.querySelector('a[data-i18n="homeLink"]');
+		if (homeLink) homeLink.href = localized.home;
+
+		// The switcher was rendered with the default language marked as current.
+		for (const link of document.querySelectorAll('[data-lang-switcher] a[lang]')) {
+			if (link.lang === requestedLang) {
+				link.setAttribute('aria-current', 'page');
+			} else {
+				link.removeAttribute('aria-current');
+			}
+		}
+	}
+</script>
+
+<style>
+	.page {
+		min-height: 100svh;
+		display: grid;
+		align-items: center;
+		text-align: center;
+	}
+
+	.code {
+		font-family: var(--font-mono);
+		font-size: clamp(4rem, 18vw, 9rem);
+		line-height: 1;
+		color: var(--color-border);
+	}
+
+	h1 {
+		margin-block-start: var(--space-4);
+		font-size: clamp(1.5rem, 4vw, 2rem);
+	}
+
+	.body {
+		margin-block: var(--space-6) var(--space-8);
+		color: var(--color-text-muted);
+		max-width: 40ch;
+		margin-inline: auto;
+	}
+</style>
